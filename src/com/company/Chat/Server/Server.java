@@ -20,7 +20,7 @@ public class Server implements Runnable{
         }
         ServerLogger.log("Server wystartował.");
         ServerLogger.log("Port: "+serverSocket.getLocalPort());
-        while (true){
+        while (!serverSocket.isClosed()){
             try {
                 Socket clientSocket = serverSocket.accept();
                 ClientHandler cliThread = new ClientHandler(clientSocket);
