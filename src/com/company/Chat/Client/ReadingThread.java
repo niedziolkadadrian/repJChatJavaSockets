@@ -12,7 +12,8 @@ public class ReadingThread extends Thread{
     @Override
     public void run() {
         while(true){
-            System.out.println(in.nextLine());
+            if(in.hasNextLine())
+                System.out.println(in.nextLine());
         }
     }
 }
