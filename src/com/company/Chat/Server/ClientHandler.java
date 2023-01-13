@@ -11,9 +11,7 @@ public class ClientHandler extends Thread{
 
     @Override
     public void run() {
-        System.out.println("Podłączył się: ");
-        System.out.println(socket.getInetAddress());
-        System.out.println(socket.getPort());
+        ServerLogger.log(socket.getInetAddress()+":"+socket.getPort()+" podłączył się.");
 
         try {
             socket.close();
