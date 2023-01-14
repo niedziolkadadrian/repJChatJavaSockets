@@ -14,14 +14,14 @@ public class AuthUser implements UserState{
             return;
 
         if(polecenie[0].equals("LOGOUT")){
-            handler.logoutUser();
+            handler.getUser().logOut(handler);
             handler.setUserState(new NoAuthUser(handler));
         }else if(polecenie.length == 2 && polecenie[0].equals("MSG") && !polecenie[1].isBlank()) {
             //broadcast: MSG <UZYTKOWNIK> <WIADOMOSC>
             handler.getServer().broadcast(polecenie[0]+" "+handler.getUser()+" "+polecenie[1]);
 
             ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+
-                    " Użytkownik "+handler.getUser()+" wysłał wiadomość: "+message);
+                    " Użytkownik "+handler.getUser().getUserName()+" wysłał wiadomość: "+message);
         }else{
             ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+" "+message);
         }

@@ -13,7 +13,7 @@ public class ClientHandler extends Thread{
     private PrintWriter out;
     private UserState userState;
 
-    private String user;
+    private UsersManager user;
 
     ClientHandler(Socket socket, Server server) throws IOException {
         this.socket = socket;
@@ -21,6 +21,7 @@ public class ClientHandler extends Thread{
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
         userState = new NoAuthUser(this);
+        user = new UsersManager();
     }
 
     @Override
@@ -31,13 +32,13 @@ public class ClientHandler extends Thread{
             String message = null;
             try {
                 if((message = in.readLine()) == null){
-                    logoutUser();
+                    user.logOut(this);
                     closeSocket();
                     continue;
                 }
                 userState.handleMessage(message);
             } catch (IOException e) {
-                logoutUser();
+                user.logOut(this);
                 closeSocket();
             }
         }
@@ -45,13 +46,6 @@ public class ClientHandler extends Thread{
 
     public void sendMessage(String message){
         out.println(message);
-    }
-
-    public void logoutUser(){
-        if(this.user != null){
-            server.delUserConn(this.user, this);
-            this.user = null;
-        }
     }
 
     private void closeSocket(){
@@ -75,11 +69,11 @@ public class ClientHandler extends Thread{
         this.userState = userState;
     }
 
-    public String getUser() {
+    public UsersManager getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(UsersManager user) {
         this.user = user;
     }
 }

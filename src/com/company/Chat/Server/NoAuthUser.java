@@ -14,13 +14,30 @@ public class NoAuthUser implements UserState{
             return;
 
         if(polecenie.length == 2 && polecenie[0].equals("LOGIN") && !polecenie[1].isBlank()){
-            handler.setUser(polecenie[1]);
-            handler.getServer().addUserConn(polecenie[1],handler);
-            handler.setUserState(new AuthUser(handler));
+            String[] values = polecenie[1].split("\\s");
+            if(values.length == 2 && !values[0].isBlank() && !values[1].isBlank()){
+                try{
+                    handler.getUser().login(values[0], values[1]);
+                    handler.getServer().addUserConn(handler.getUser().getUserName(),handler);
+                    handler.setUserState(new AuthUser(handler));
+                } catch (NoSuchUserError | WrongPasswordError e) {
+                    handler.sendMessage("ERROR "+e.getMessage());
+                    ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+
+                            "ERROR "+e.getMessage());
+                }
+            }
         }else if(polecenie.length == 2 && polecenie[0].equals("REGISTER") && !polecenie[1].isBlank()) {
-            System.out.println("REJESTRACJA");
-        }
-        else{
+            String[] values = polecenie[1].split("\\s");
+            if(values.length == 2 && !values[0].isBlank() && !values[1].isBlank()) {
+                try{
+                    handler.getUser().register(values[0], values[1]);
+                } catch (UserAlreadyExistError e) {
+                    handler.sendMessage("ERROR "+e.getMessage());
+                    ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+
+                            "ERROR "+e.getMessage());
+                }
+            }
+        }else{
             ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+" "+message);
         }
     }
