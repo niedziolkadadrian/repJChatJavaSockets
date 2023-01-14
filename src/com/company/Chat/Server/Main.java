@@ -1,7 +1,0 @@
-package com.company.Chat.Server;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
-}
