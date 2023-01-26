@@ -19,6 +19,7 @@ public class NoAuthUser implements UserState{
                 try{
                     handler.getUser().login(values[0], values[1]);
                     handler.getServer().addUserConn(handler.getUser().getUserName(),handler);
+                    handler.sendMessage("LOGIN_SUCCESS");
                     handler.setUserState(new AuthUser(handler));
                 } catch (NoSuchUserError | WrongPasswordError e) {
                     handler.sendMessage("ERROR "+e.getMessage());

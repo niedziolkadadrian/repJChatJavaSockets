@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" style="-fx-border-color: #000000; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Chat.Client.LoginController">
+    <children>
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane prefWidth="140.0" style="-fx-background-color: #1f1f23;">
+                    <children>
+                        <VBox layoutX="16.0" layoutY="16.0" prefHeight="342.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+                            <children>
+                                <HBox prefHeight="50.0" prefWidth="124.0" spacing="10.0">
+                                    <children>
+                                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@chat.png" />
+                                            </image>
+                                            <HBox.margin>
+                                                <Insets top="2.0" />
+                                            </HBox.margin>
+                                        </ImageView>
+                                        <Label prefHeight="50.0" text="CHAT" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="MS Gothic" size="32.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <Separator opacity="0.5" prefWidth="200.0">
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </Separator>
+                        <AnchorPane layoutX="10.0" layoutY="63.0" prefHeight="50.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #18181b; -fx-text-fill: #fff; -fx-border-color: #000; -fx-border-width: 1; -fx-background-radius: 10; -fx-border-radius: 10;" text="Logowanie" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </AnchorPane>
+                                <AnchorPane prefHeight="50.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#handleToRegister" prefHeight="50.0" style="-fx-background-color: #18181b; -fx-text-fill: #fff; -fx-border-color: #000; -fx-border-width: 1; -fx-background-radius: 10; -fx-border-radius: 10;" text="Rejestracja" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <effect>
+                                                <DropShadow />
+                                            </effect>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                    </padding>
+                </AnchorPane>
+                <AnchorPane style="-fx-background-color: #18181b;" HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets bottom="100.0" left="100.0" right="100.0" top="100.0" />
+                     </padding>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox prefHeight="80.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Logowanie" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="50.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <AnchorPane prefWidth="50.0">
+                                       <children>
+                                          <Label text="Login: " textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <TextField fx:id="loginField" promptText="Login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <AnchorPane prefWidth="50.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <Label text="Hasło: " textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <PasswordField fx:id="passwordField" promptText="Hasło" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </PasswordField>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                               <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" VBox.vgrow="NEVER">
+                                   <children>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                       <AnchorPane HBox.hgrow="NEVER">
+                                           <children>
+                                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleLogin" prefWidth="200.0" text="Zaloguj" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                           </children>
+                                       </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                   </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                               </HBox>
+                              <HBox fx:id="errorBox" layoutX="10.0" layoutY="107.0" prefHeight="50.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <Label text="Brak połączenia z serwerem." textFill="#c90f0f" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="15.0" />
+                                       </HBox.margin>
+                                    </AnchorPane>
+                                    <AnchorPane>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleRetry" text="Spróbuj ponownie" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font></Button>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
