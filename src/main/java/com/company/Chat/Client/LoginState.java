@@ -1,5 +1,6 @@
 package com.company.Chat.Client;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class LoginState implements State{
     private Main app;
@@ -27,7 +29,8 @@ public class LoginState implements State{
         app.getMainStage().setScene(scene);
         app.getMainStage().show();
 
-        this.connect();
+        if(this.app.getSocket() == null)
+            this.connect();
     }
 
     public void toRegister() throws IOException {
@@ -47,7 +50,7 @@ public class LoginState implements State{
 
     @Override
     public void send(String message){
-        this.app.getSocketOut().println(message);
+        this.app.send(message);
     }
 
     @Override
@@ -55,14 +58,29 @@ public class LoginState implements State{
         String[] command = message.split("\s", 2);
         if(command[0].equals("CONNECTION_CLOSED")){
             this.controller.setErrorBoxVisibility(true);
-        } else if (command[0].equals("LOGIN_SUCCESS")) {
-            this.app.setState(new ChatState(app));
-            try {
-                this.app.getState().start();
-            } catch (IOException e) {
-                e.printStackTrace();
+        } else if (command[0].equals("LOGIN_SUCCESS") && command.length == 2 && !command[1].isBlank()) {
+            app.clearConnectedUsers();
+            app.setUserName(command[1]);
+            Platform.runLater(() -> {
+                try {
+                app.setState(new ChatState(app));
+                app.getState().start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } else if (command[0].equals("ACTION") && command.length == 2 && !command[1].isBlank()) {
+            String[] action = command[1].split("\s", 2);
+            if(action[0].equals("USER_CONNECTED") && action.length == 2){
+                app.addConnectedUser(action[1]);
+            } else if (action[0].equals("USER_DISCONNECTED") && action.length ==2) {
+                app.delConnectedUser(action[1]);
             }
+        } else if (command[0].equals("ERROR") && command.length == 2 && !command[1].isBlank()) {
+            Platform.runLater(() -> this.controller.setErrorMsg(command[1]));
         }
-        System.out.println("LOGIN STATE: "+message);
     }
+
+    @Override
+    public void handleConnectedUserList(CopyOnWriteArrayList<String> usersList) {}
 }

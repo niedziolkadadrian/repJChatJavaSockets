@@ -1,0 +1,4 @@
+.list-cell:selected {
+    -fx-background-color: #333339;
+    -fx-fill-color: #ffffff;
+}

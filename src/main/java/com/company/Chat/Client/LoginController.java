@@ -1,6 +1,7 @@
 package com.company.Chat.Client;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -16,6 +17,9 @@ public class LoginController {
 
     @FXML
     private HBox errorBox;
+
+    @FXML
+    private Label errorMsg;
 
     public void setState(LoginState state) {
         this.state = state;
@@ -41,7 +45,12 @@ public class LoginController {
         errorBox.setVisible(visibility);
     }
 
-    @FXML void handleRetry(){
+    @FXML
+    private void handleRetry(){
         this.state.connect();
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg.setText(errorMsg);
     }
 }
