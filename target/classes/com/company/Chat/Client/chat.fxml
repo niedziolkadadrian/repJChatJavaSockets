@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -60,6 +61,9 @@
                                  <effect>
                                     <DropShadow />
                                  </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <padding>
@@ -103,6 +107,9 @@
                                                                      </image>
                                                                   </ImageView>
                                                                </graphic>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
                                                             </Button>
                                                          </children>
                                                       </HBox>

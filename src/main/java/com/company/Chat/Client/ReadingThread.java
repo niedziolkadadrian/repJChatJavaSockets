@@ -1,19 +1,32 @@
 package com.company.Chat.Client;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ReadingThread extends Thread{
-    private final Scanner in;
+    private final Main app;
 
-    public ReadingThread(Scanner in) {
-        this.in = in;
+
+    public ReadingThread(Main app) {
+        this.app = app;
     }
+
+
 
     @Override
     public void run() {
-        while(true){
-            if(in.hasNextLine())
-                System.out.println(in.nextLine());
-        }
+        try {
+            while (!app.getSocket().isClosed()) {
+                String command;
+                //server zamknal socket
+                if((command = app.getSocketIn().readLine()) == null){
+                    app.getSocket().close();
+                    app.handleMessage("CONNECTION_CLOSED");
+                    continue;
+                }
+                app.handleMessage(command);
+            }
+        } catch (IOException ignore) {}
     }
 }
