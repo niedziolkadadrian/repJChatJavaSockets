@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Main extends Application {
     private State state;
@@ -22,6 +23,9 @@ public class Main extends Application {
     private PrintWriter socketOut;
 
     private ReadingThread readingThread;
+
+    private String userName;
+    private final CopyOnWriteArrayList<String> connectedUsers = new CopyOnWriteArrayList<>();
 
     public static void main(String[] args){
         launch(args);
@@ -56,8 +60,12 @@ public class Main extends Application {
         return socketIn;
     }
 
-    public PrintWriter getSocketOut() {
-        return socketOut;
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
@@ -69,14 +77,36 @@ public class Main extends Application {
         this.state.start();
     }
 
-    public void handleMessage(String message){
-        this.state.handleMessage(message);
-    }
-
     @Override
     public void stop() throws Exception {
         if(socket != null){
             socket.close();
         }
+    }
+
+    public void handleMessage(String message){
+        this.state.handleMessage(message);
+    }
+
+    public void send(String message){
+        socketOut.println(message);
+    }
+
+    public void addConnectedUser(String user){
+        this.connectedUsers.add(user);
+        this.state.handleConnectedUserList(connectedUsers);
+    }
+
+    public void delConnectedUser(String user){
+        this.connectedUsers.remove(user);
+        this.state.handleConnectedUserList(connectedUsers);
+    }
+
+    public void clearConnectedUsers(){
+        this.connectedUsers.clear();
+    }
+
+    public CopyOnWriteArrayList<String> getConnectedUsers() {
+        return connectedUsers;
     }
 }

@@ -18,8 +18,8 @@ public class NoAuthUser implements UserState{
             if(values.length == 2 && !values[0].isBlank() && !values[1].isBlank()){
                 try{
                     handler.getUser().login(values[0], values[1]);
+                    handler.sendMessage("LOGIN_SUCCESS "+handler.getUser().getUserName());
                     handler.getServer().addUserConn(handler.getUser().getUserName(),handler);
-                    handler.sendMessage("LOGIN_SUCCESS");
                     handler.setUserState(new AuthUser(handler));
                 } catch (NoSuchUserError | WrongPasswordError e) {
                     handler.sendMessage("ERROR "+e.getMessage());
@@ -32,6 +32,7 @@ public class NoAuthUser implements UserState{
             if(values.length == 2 && !values[0].isBlank() && !values[1].isBlank()) {
                 try{
                     handler.getUser().register(values[0], values[1]);
+                    handler.sendMessage("REGISTER_SUCCESS");
                 } catch (UserAlreadyExistError e) {
                     handler.sendMessage("ERROR "+e.getMessage());
                     ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+

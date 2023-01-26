@@ -18,10 +18,13 @@ public class AuthUser implements UserState{
             handler.setUserState(new NoAuthUser(handler));
         }else if(polecenie.length == 2 && polecenie[0].equals("MSG") && !polecenie[1].isBlank()) {
             //broadcast: MSG <UZYTKOWNIK> <WIADOMOSC>
-            handler.getServer().broadcast(polecenie[0]+" "+handler.getUser()+" "+polecenie[1]);
+            String[] msg = polecenie[1].split("\s", 2);
+            if(msg.length == 2 && !msg[1].isBlank()){
+                handler.getServer().broadcast(polecenie[0]+" "+msg[0]+" "+msg[1]);
 
-            ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+
-                    " Użytkownik "+handler.getUser().getUserName()+" wysłał wiadomość: "+message);
+                ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+
+                        " Użytkownik "+handler.getUser().getUserName()+" wysłał wiadomość: "+msg[1]);
+            }
         }else{
             ServerLogger.log(handler.getSocket().getInetAddress()+":"+handler.getSocket().getPort()+" "+message);
         }

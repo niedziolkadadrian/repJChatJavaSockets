@@ -1,10 +1,13 @@
 package com.company.Chat.Client;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RegisterState implements State{
     private Main app;
@@ -24,20 +27,49 @@ public class RegisterState implements State{
         Scene scene = new Scene(root, 600, 400);
         app.getMainStage().setScene(scene);
         app.getMainStage().show();
+
+        if(this.app.getSocket() == null)
+            this.connect();
     }
 
-    public void toLogin()throws IOException {
+    public void toLogin() throws IOException {
         app.setState(new LoginState(app));
         app.getState().start();
     }
 
+    public void connect(){
+        try{
+            Socket s = new Socket("localhost", 8188);
+            app.setSocket(s);
+            this.controller.setErrorBoxVisibility(false);
+        } catch (IOException e) {
+            this.controller.setErrorBoxVisibility(true);
+        }
+    }
+
     @Override
     public void send(String message){
-        this.app.getSocketOut().println(message);
+        this.app.send(message);
     }
 
     @Override
     public void handleMessage(String message) {
-        System.out.println("REGISTER STATE: "+message);
+        String[] command = message.split("\s", 2);
+        if(command[0].equals("CONNECTION_CLOSED")){
+            this.controller.setErrorBoxVisibility(true);
+        } else if (command[0].equals("REGISTER_SUCCESS")) {
+            Platform.runLater(() -> {
+                try {
+                    app.setState(new LoginState(app));
+                    app.getState().start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } else if (command[0].equals("ERROR") && command.length == 2 && !command[1].isBlank()) {
+            Platform.runLater(() -> this.controller.setErrorMsg(command[1]));
+        }
     }
+    @Override
+    public void handleConnectedUserList(CopyOnWriteArrayList<String> usersList){}
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" style="-fx-border-color: #000000; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" style="-fx-border-color: #000000; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Chat.Client.ChatController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -48,7 +48,7 @@
                                     <Insets top="7.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label prefHeight="50.0" text="Username" textFill="WHITE" HBox.hgrow="ALWAYS">
+                              <Label fx:id="userNameLabel" prefHeight="50.0" text="Username" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Calibri" size="14.0" />
                                  </font>
@@ -57,7 +57,7 @@
                         </HBox>
                         <AnchorPane prefHeight="50.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #18181b; -fx-text-fill: #fff; -fx-border-color: #000; -fx-border-width: 1; -fx-background-radius: 10; -fx-border-radius: 10;" text="Wyloguj" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="50.0" style="-fx-background-color: #18181b; -fx-text-fill: #fff; -fx-border-color: #000; -fx-border-width: 1; -fx-background-radius: 10; -fx-border-radius: 10;" text="Wyloguj" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -87,7 +87,10 @@
                                  <children>
                                     <AnchorPane style="-fx-background-color: #18181b;" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <ListView style="-fx-background-color: #18181b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <ListView fx:id="messages" focusTraversable="false" style="-fx-background-color: #18181b; -fx-control-inner-background: transparent;" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding></ListView>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane prefHeight="40.0" style="-fx-background-color: #18181b;">
@@ -98,8 +101,8 @@
                                                    <children>
                                                       <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <TextField promptText="Wyślij Wiadomość" style="-fx-background-color: #3d3d40; -fx-text-fill: #ffffff;" HBox.hgrow="ALWAYS" />
-                                                            <Button mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #18181b;" text="Wyślij" textFill="WHITE">
+                                                            <TextField fx:id="messageField" promptText="Wyślij Wiadomość" style="-fx-background-color: #3d3d40; -fx-text-fill: #ffffff;" HBox.hgrow="ALWAYS" />
+                                                            <Button mnemonicParsing="false" onAction="#handleSendMessage" prefWidth="70.0" style="-fx-background-color: #18181b;" text="Wyślij" textFill="WHITE">
                                                                <graphic>
                                                                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
@@ -134,7 +137,16 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <children>
-                              <ListView style="-fx-background-color: #1f1f23;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label text="Użytkownicy:" textFill="WHITE">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="connectedUsersListView" style="-fx-background-color: #1f1f23; -fx-control-inner-background: transparent;" stylesheets="@style.css" />
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </children>
